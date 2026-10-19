@@ -27,7 +27,8 @@ IS_MAC = sys.platform == "darwin"
 CREATE_NO_WINDOW = 0x08000000
 
 GITHUB_API_LATEST = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest"
-YTDLP_RELEASE_BASE = "https://github.com/yt-dlp/yt-dlp/releases/latest/download/"
+GITHUB_RELEASES_LATEST = "https://github.com/yt-dlp/yt-dlp/releases/latest"
+YTDLP_RELEASE_BASE ="https://github.com/yt-dlp/yt-dlp/releases/latest/download/"
 YTDLP_SUMS_URL = YTDLP_RELEASE_BASE + "SHA2-256SUMS"
 USER_AGENT = "CamaradasDownloader/1.1"
 
@@ -404,12 +405,28 @@ def _http_get(url, timeout):
     return urllib.request.urlopen(req, timeout=timeout, context=ssl_context())
 
 
+def tag_from_release_url(url):
+    """'https://github.com/yt-dlp/yt-dlp/releases/tag/2026.08.19' -> '2026.08.19'."""
+    m = re.search(r"/releases/tag/([^/?#]+)", url or "")
+    return m.group(1) if m else None
+
+
 def fetch_latest_tag(timeout=8):
-    """Versão mais nova no GitHub ou None (sem internet, limite da API...)."""
+    """Versão mais nova no GitHub ou None (sem internet etc.).
+
+    A API do GitHub limita a 60 consultas por hora por IP (redes compartilhadas
+    estouram isso); se ela recusar, segue o redirecionamento de releases/latest,
+    que aponta para a página da versão e não tem esse limite."""
     try:
         with _http_get(GITHUB_API_LATEST, timeout) as r:
-            data = json.loads(r.read().decode("utf-8"))
-        return data.get("tag_name") or None
+            tag = json.loads(r.read().decode("utf-8")).get("tag_name")
+        if tag:
+            return tag
+    except Exception:
+        pass
+    try:
+        with _http_get(GITHUB_RELEASES_LATEST, timeout) as r:
+            return tag_from_release_url(r.geturl())
     except Exception:
         return None
 

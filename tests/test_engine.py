@@ -247,6 +247,32 @@ def test_settings_roundtrip(tmp_path, monkeypatch):
 
 # ------------------------------------------------------ plataforma
 
+def test_tag_from_release_url():
+    assert engine.tag_from_release_url(
+        "https://github.com/yt-dlp/yt-dlp/releases/tag/2026.08.19") == "2026.08.19"
+    assert engine.tag_from_release_url("https://github.com/yt-dlp/yt-dlp/releases") is None
+    assert engine.tag_from_release_url(None) is None
+
+
+def test_latest_tag_falls_back_when_api_refuses(monkeypatch):
+    class Resp:
+        def __init__(self, url):
+            self.url = url
+        def __enter__(self):
+            return self
+        def __exit__(self, *a):
+            return False
+        def geturl(self):
+            return "https://github.com/yt-dlp/yt-dlp/releases/tag/2026.10.01"
+
+    def fake_get(url, timeout):
+        if "api.github.com" in url:
+            raise OSError("HTTP Error 403: rate limit exceeded")
+        return Resp(url)
+    monkeypatch.setattr(engine, "_http_get", fake_get)
+    assert engine.fetch_latest_tag() == "2026.10.01"
+
+
 def test_ytdlp_asset_names():
     assert engine.ytdlp_asset_name("win32") == "yt-dlp.exe"
     assert engine.ytdlp_asset_name("darwin") == "yt-dlp_macos"
