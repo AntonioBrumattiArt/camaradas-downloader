@@ -1,0 +1,9 @@
+*.sh text eol=lf
+*.yml text eol=lf
+*.bat text eol=crlf
+*.iss text eol=crlf
+*.wav binary
+*.ttf binary
+*.ico binary
+*.icns binary
+*.png binary

@@ -1,0 +1,29 @@
+﻿Camarada, leia isso antes de começar
+====================================
+
+1. Extraia o zip (botão direito > Extrair tudo). Nada de rodar de dentro do zip.
+
+2. Execute o CamaradasDownloader-Setup.exe.
+   Se o Windows mostrar "O Windows protegeu o computador" / app não
+   reconhecido: clique em "Mais informações" e depois em "Executar assim
+   mesmo". É só porque o app não pagou a assinatura do burguês certificador.
+   Algum antivírus pode reclamar também: é falso positivo, camarada.
+
+3. Abra o Camaradas Downloader, cole o link (ele cola sozinho se o link
+   já estiver copiado), escolha VÍDEO MP4 ou ÁUDIO (MP3, WAV, FLAC, M4A ou
+   OPUS: troque nos três pontinhos ao lado do formato) e clique em
+   EXPROPRIAR.
+
+4. Tudo cai em Downloads, pasta "Vídeos baixados".
+
+5. Algum site parou de funcionar? Feche e abra o app de novo: o Comitê
+   Central se atualiza sozinho toda vez que abre.
+
+6. Instagram pedindo carteirinha do partido? Alguns vídeos só saem com
+   login. Entre na sua conta pelo navegador (Firefox ou Edge funcionam
+   melhor), depois vá nos três pontinhos lá em cima > "Login do navegador"
+   e escolha ele. A máquina do povo usa a sua sessão, e só a sua.
+
+7. Uso só entre camaradas. Não é monetizável, não se vende, sem patrão.
+
+Hasta la victoria siempre!

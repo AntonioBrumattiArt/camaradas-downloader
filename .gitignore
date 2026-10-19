@@ -1,0 +1,13 @@
+# ambientes e saídas de build (o build recria)
+.venv/
+.venv-mac/
+build/
+dist/
+__pycache__/
+.pytest_cache/
+*.spec
+Camaradas-Downloader*.zip
+
+# binários grandes: no Windows ficam em vendor/ (ver README); no Mac o build_mac.sh baixa
+vendor/*.exe
+vendor_mac/

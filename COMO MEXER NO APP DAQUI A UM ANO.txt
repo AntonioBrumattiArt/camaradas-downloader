@@ -1,0 +1,170 @@
+﻿COMO MEXER NO CAMARADAS DOWNLOADER DAQUI A UM ANO
+=================================================
+Atualizado em 19/10/2026, versão 1.1.0 (Windows + Mac, um código só).
+Leia inteiro antes de mexer. Leva 5 minutos.
+
+>>> GUARDE ESTA PASTA EM MAIS DE UM LUGAR (Drive, Dropbox, pendrive, GitHub).
+>>> A pasta original da versão 1.0 se perdeu e precisou ser reconstruída.
+
+
+0. ANTES DE TUDO: O QUE SE ATUALIZA SOZINHO E O QUE NÃO
+-------------------------------------------------------
+- O yt-dlp (o "motor" que baixa os vídeos) se atualiza SOZINHO toda vez
+  que alguém abre o app. Ele fica fora do instalador:
+    Windows: %LOCALAPPDATA%\CamaradasDownloader\bin\yt-dlp.exe
+    Mac:     ~/Library/Application Support/CamaradasDownloader/bin/yt-dlp_macos
+  -> Se um site parou de funcionar, quase sempre basta fechar e abrir o
+     app. Você NÃO precisa gerar um instalador novo por causa disso.
+
+- O que NÃO se atualiza sozinho (vai dentro do instalador):
+    ffmpeg e ffprobe  -> convertem vídeo e áudio
+    deno              -> o yt-dlp precisa dele para o YouTube
+  Se o YouTube começar a falhar mesmo depois de fechar e abrir o app, o
+  culpado provável é o deno velho. Veja a seção 4.
+
+- Apagar a pasta CamaradasDownloader (caminhos acima) "reseta" o app;
+  ele baixa o yt-dlp de novo ao abrir.
+
+
+1. O QUE TEM NESTA PASTA
+------------------------
+  app.py            a janela do app e a ponte com a interface
+  engine.py         o motor (yt-dlp, progresso, cancelar, erros, atualização).
+                    As diferenças Windows x Mac ficam na seção "plataforma".
+  messages.py       TODAS as frases que aparecem para o usuário
+  ui\index.html     a interface (o desenho aprovado)
+  ui\tela_referencia.html   cópia original aprovada, para comparar
+  assets\           fonte, sons, icon.ico (Windows) e icon.icns (Mac)
+  vendor\           ffmpeg.exe, ffprobe.exe, deno.exe do WINDOWS (~390 MB)
+  make_assets.py    gera de novo os sons e os ícones
+  tests\            testes automáticos
+  build.bat         build do WINDOWS: instalador + zip
+  installer.iss     receita do instalador do Windows (e onde fica a VERSÃO)
+  build_mac.sh      build do MAC (roda num Mac ou no GitHub)
+  .github\workflows\build-mac.yml   build do Mac na nuvem do GitHub
+  LEIA-ME, CAMARADA.txt        texto para os amigos de Windows
+  LEIA-ME, CAMARADA (Mac).txt  texto para os amigos de Mac
+  README.md         notas técnicas e licenças
+
+  Pode apagar sem medo (os builds recriam): build\, dist\, .venv\,
+  .venv-mac\, vendor_mac\, *.spec e os zips Camaradas-Downloader*.zip.
+  NÃO apague: vendor\, assets\, ui\, .github\ e os arquivos .py.
+
+
+2. O JEITO MAIS FÁCIL: PEDIR PARA O CLAUDE
+------------------------------------------
+Abra o Claude Code nesta pasta e peça em português, por exemplo:
+
+  "Leia o arquivo COMO MEXER NO APP DAQUI A UM ANO.txt e o README.md.
+   Quero [sua mudança]. Depois rode os testes, gere o instalador do
+   Windows com o build.bat, teste o app instalado e me entregue o zip.
+   Me diga também como gerar a versão do Mac."
+
+A interface foi aprovada pixel a pixel: se a mudança for visual, peça
+para comparar o app com o ui\tela_referencia.html no final.
+
+
+3. GERAR AS VERSÕES
+-------------------
+3.1  WINDOWS (neste PC)
+     1. Precisa: Python 3 e Inno Setup 6.
+          winget install Python.Python.3.14
+          winget install JRSoftware.InnoSetup
+     2. Dois cliques no build.bat. Ele roda os testes, empacota e gera o
+        Camaradas-Downloader.zip aqui na pasta.
+     3. Instale o Setup que saiu em dist\ e teste um download de verdade.
+
+3.2  MAC, SEM TER UM MAC (GitHub, de graça)
+     Primeira vez (só uma vez):
+     1. Crie uma conta em github.com.
+     2. Crie um repositório PRIVADO (botão "New") chamado camaradas-downloader.
+     3. Suba esta pasta para ele. O jeito mais fácil: instale o GitHub
+        Desktop (desktop.github.com), "Add existing repository", escolha
+        esta pasta e clique em "Publish". Os arquivos grandes (vendor\*.exe)
+        ficam de fora sozinhos pelo .gitignore.
+     Toda vez que quiser gerar:
+     4. No site do repositório: aba "Actions" > "Build Mac" > "Run workflow".
+     5. Espere uns 15 minutos (bolinha verde = deu certo).
+     6. Clique na execução e baixe, em "Artifacts", os dois zips:
+          Camaradas-Downloader-Mac-AppleSilicon  (Macs M1, M2, M3...)
+          Camaradas-Downloader-Mac-Intel         (Macs antigos)
+        Dentro de cada um tem o zip para mandar aos amigos e um relatório
+        "selftest". Abra o relatório: no fim deve estar "resultado": "OK".
+     Se a bolinha ficar vermelha, clique nela, copie o erro e peça ajuda
+     ao Claude colando o erro.
+
+3.3  MAC, NUM MAC (se algum camarada emprestar)
+     Abra o Terminal na pasta e rode:  bash build_mac.sh
+     Sai um zip para o tipo de Mac onde rodou (Apple Silicon ou Intel).
+
+3.4  Mudar um texto de erro ou de sucesso
+     -> messages.py. Troque só o que está entre aspas. Vale para os dois
+        sistemas. Depois gere as versões de novo.
+
+3.5  Mudar a interface (cores, textos da tela, botões)
+     -> ui\index.html. Regras:
+        - Depois de mudar, copie também para ui\tela_referencia.html.
+        - Ver a mudança sem gerar instalador (Windows):
+            .venv\Scripts\python.exe app.py
+        - A janela tem 356 px de largura fixa; a altura se ajusta sozinha.
+        - O app.py injeta ajustes que NÃO estão no HTML (não apague): tira
+          as barras de rolagem, faz a janela crescer quando a lista de
+          formatos de áudio abre e deixa os cantos retos no Windows 11.
+     PENDENTE desde a versão 1.0: a tela "Ajuda" ainda diz
+     "Fale com o camarada [NOME]." Troque [NOME] no ui\index.html.
+
+3.6  Trocar os sons ou o ícone
+     -> Edite make_assets.py e rode: .venv\Scripts\python.exe make_assets.py
+        Ou troque assets\success.wav e assets\error.wav por arquivos seus.
+        Se trocar o ícone, gere de novo o icon.ico E o icon.icns.
+
+
+4. ATUALIZAR AS PEÇAS DE FORA
+-----------------------------
+WINDOWS (pasta vendor\):
+  deno.exe   -> github.com/denoland/deno/releases, arquivo
+                deno-x86_64-pc-windows-msvc.zip
+  ffmpeg.exe e ffprobe.exe -> github.com/yt-dlp/FFmpeg-Builds/releases,
+                arquivo ffmpeg-master-latest-win64-gpl.zip, pasta bin\.
+MAC: o build_mac.sh já baixa as versões mais novas sozinho. Para forçar,
+     apague a pasta vendor_mac\ antes de rodar (no GitHub isso já acontece
+     sempre, porque a pasta não vai para lá).
+
+
+5. ANTES DE MANDAR UMA VERSÃO NOVA
+----------------------------------
+1. Suba o número da versão em installer.iss, na linha
+     #define AppVersion "1.1.0"   ->  "1.2.0"
+   (o build do Mac lê a versão dali também)
+2. Gere o Windows (3.1) e o Mac (3.2).
+3. Teste o Windows: vídeo MP4, um áudio, cancelar no meio e link inválido.
+   No Mac, confira o relatório "selftest" e, se puder, peça para um
+   camarada com Mac testar antes de mandar para todo mundo.
+4. Mande cada zip com o seu LEIA-ME.
+
+
+6. SE ALGO DER ERRADO
+---------------------
+- "py não é reconhecido": winget install Python.Python.3.14
+- O .venv quebrou (comum depois de atualizar o Python): apague a pasta
+  .venv e rode o build.bat de novo.
+- Build falhou num Python muito novo (3.15+): instale o 3.14.
+- Bibliotecas: travadas em requirements.txt (pywebview 6.2.1,
+  pyinstaller 6.22.3, pytest 9.1.1). Se atualizar e a janela ficar
+  estranha, volte para essas versões.
+- "Inno Setup 6 não encontrado": winget install JRSoftware.InnoSetup
+- Testes falhando depois de mudar frases: tests\test_engine.py confere
+  algumas frases exatas; ajuste lá também.
+- GitHub Actions: se a máquina "macos-15-intel" deixar de existir (a
+  Apple está largando o Intel), apague o bloco dela no
+  .github\workflows\build-mac.yml e gere só o Apple Silicon.
+- Antivírus apagou algo da pasta dist\: falso positivo do PyInstaller.
+  Libere a pasta no antivírus e rode de novo.
+
+
+7. LEMBRETES
+------------
+- Só baixe conteúdo seu, livre ou com permissão. O app não contorna DRM,
+  login nem conta privada, e deve continuar assim.
+- Não é para vender nem monetizar (licenças no README.md).
+- Hasta la victoria siempre.

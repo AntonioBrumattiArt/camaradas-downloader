@@ -1,0 +1,50 @@
+# Gera o Camaradas Downloader para Mac em máquinas macOS do GitHub (sem precisar de um Mac).
+# Como usar: aba "Actions" do repositório > "Build Mac" > "Run workflow".
+# No fim, baixe os zips em "Artifacts" na página da execução.
+name: Build Mac
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+jobs:
+  mac:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15          # Apple Silicon (M1, M2, M3...)
+            label: AppleSilicon
+          - runner: macos-15-intel    # Macs com processador Intel
+            label: Intel
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build (.app, autoteste, .dmg e zip)
+        env:
+          PYTHON: python
+        run: bash build_mac.sh
+
+      # Download real dentro do .app. O YouTube costuma bloquear máquinas de servidor,
+      # então uma falha AQUI não reprova o build: leia o relatório para saber o motivo.
+      - name: Autoteste com download real (informativo)
+        continue-on-error: true
+        run: |
+          "dist/Camaradas Downloader.app/Contents/MacOS/Camaradas Downloader" --selftest \
+            --download "https://www.youtube.com/watch?v=SkVqJ1SGeL0" \
+            --out "dist/selftest-download-${{ matrix.label }}.json"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Camaradas-Downloader-Mac-${{ matrix.label }}
+          path: |
+            Camaradas-Downloader-Mac-*.zip
+            dist/selftest*.json
+          if-no-files-found: error

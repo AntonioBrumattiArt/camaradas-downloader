@@ -1,0 +1,45 @@
+﻿Camarada, leia isso antes de começar (Mac)
+==========================================
+
+0. Pegue o zip certo para o seu Mac:
+   - Mac com chip da Apple (M1, M2, M3, M4...): ...-Mac-AppleSilicon.zip
+   - Mac com processador Intel:                   ...-Mac-Intel.zip
+   Não sabe qual é o seu? Menu Apple () > Sobre Este Mac. Se aparecer
+   "Chip Apple M...", é Apple Silicon; se aparecer "Processador Intel", é Intel.
+   Precisa do macOS 11 (Big Sur) ou mais novo.
+
+1. Dê dois cliques no zip e depois no .dmg que sair dele.
+   Arraste o "Camaradas Downloader" para a pasta "Aplicativos".
+
+2. Na primeira vez, o Mac vai dizer que não pode verificar o app. Calma:
+   o app só não pagou a anuidade do burguês certificador da Apple.
+   Para liberar:
+   - Tente abrir o app uma vez (vai dar o aviso, clique em "OK" ou "Concluído").
+   - Abra Ajustes do Sistema > Privacidade e Segurança, role até o fim e
+     clique em "Abrir Mesmo Assim". Confirme com sua senha.
+   Se não aparecer o botão, abra o Terminal e cole esta linha (Enter):
+     xattr -dr com.apple.quarantine "/Applications/Camaradas Downloader.app"
+   Depois disso abre normal, para sempre.
+
+3. Se o Mac perguntar se o app pode acessar a pasta Downloads
+   (ou "Transferências"), clique em Permitir: é lá que os vídeos caem.
+
+4. Cole o link (ele cola sozinho se o link já estiver copiado), escolha
+   VÍDEO MP4 ou ÁUDIO (MP3, WAV, FLAC, M4A ou OPUS: troque nos três
+   pontinhos ao lado do formato) e clique em EXPROPRIAR.
+
+5. Tudo cai em Downloads, pasta "Vídeos baixados".
+
+6. Algum site parou de funcionar? Feche o app (Cmd+Q) e abra de novo:
+   o Comitê Central se atualiza sozinho toda vez que abre.
+
+7. Instagram pedindo carteirinha do partido? Entre na sua conta pelo
+   navegador (Firefox funciona melhor no Mac), depois vá nos três pontinhos
+   lá em cima > "Login do navegador" e escolha ele. Se escolher o Chrome,
+   o Mac pode pedir sua senha para liberar as "Chaves do Chrome": é o
+   Mac protegendo a carteirinha, pode permitir. A máquina do povo usa a
+   sua sessão, e só a sua.
+
+8. Uso só entre camaradas. Não é monetizável, não se vende, sem patrão.
+
+Hasta la victoria siempre!

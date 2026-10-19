@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Camaradas Downloader</title>
+<style>
+@font-face{font-family:'Pixelify Sans';src:url('assets/PixelifySans.ttf');font-weight:400 700}
+html,body{margin:0;background:#0a1230}
+.px{font-family:'Pixelify Sans','Press Start 2P',monospace;line-height:1.35;margin:0}
+.rb{cursor:pointer;user-select:none}.rb:focus-visible{outline:2px solid #f2b705}
+.tg{display:flex;align-items:center;gap:8px;padding:7px 10px;font-family:'Pixelify Sans',monospace;font-size:14px;font-weight:700;line-height:1.2}
+.sel{background:#f2b705;color:#0a1230;border:3px solid #000;border-bottom:6px solid #a67c00}
+.uns{background:#0d1638;color:#6b7aa8;border:3px solid #1a2550;border-bottom:6px solid #1a2550}
+.mk{width:9px;height:9px;border:2px solid currentColor;flex:none}
+.sel .mk{background:#0a1230}
+.wb{width:18px;height:18px;border:2px solid #f5e6c8;background:#8f0c22;display:flex;align-items:center;justify-content:center}
+.btn{background:#c8102e;color:#f2b705;border:4px solid #000;border-bottom:7px solid #7a0a1c;padding:7px 12px;text-align:center;font-size:16px;font-weight:700}
+.t{font-size:13px;color:#f5e6c8}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="hs" viewBox="0 0 16 16"><rect x="4" y="1" width="3" height="1"/><rect x="3" y="2" width="5" height="1"/><rect x="9" y="2" width="2" height="1"/><rect x="3" y="3" width="2" height="1"/><rect x="9" y="3" width="3" height="1"/><rect x="3" y="4" width="2" height="1"/><rect x="10" y="4" width="3" height="1"/><rect x="4" y="5" width="2" height="1"/><rect x="10" y="5" width="4" height="1"/><rect x="4" y="6" width="3" height="1"/><rect x="9" y="6" width="2" height="1"/><rect x="12" y="6" width="3" height="1"/><rect x="6" y="7" width="4" height="1"/><rect x="13" y="7" width="1" height="1"/><rect x="7" y="8" width="2" height="1"/><rect x="6" y="9" width="4" height="1"/><rect x="5" y="10" width="2" height="1"/><rect x="9" y="10" width="2" height="1"/><rect x="4" y="11" width="2" height="1"/><rect x="10" y="11" width="2" height="1"/><rect x="3" y="12" width="2" height="1"/><rect x="11" y="12" width="2" height="1"/><rect x="2" y="13" width="2" height="1"/><rect x="12" y="13" width="2" height="1"/></symbol></svg>
+<div id="win" style="box-sizing:border-box;width:356px;border:4px solid #000;background:#0a1230;position:relative;overflow:hidden">
+<svg width="240" height="240" viewBox="0 0 22 22" shape-rendering="crispEdges" aria-hidden="true" style="position:absolute;left:50%;bottom:0;transform:translateX(-50%);opacity:0.28;pointer-events:none">
+<rect x="7" y="2" width="8" height="1" fill="#c8102e"/><rect x="5" y="3" width="12" height="1" fill="#c8102e"/><rect x="4" y="4" width="14" height="1" fill="#c8102e"/><rect x="5" y="5" width="12" height="1" fill="#c8102e"/>
+<rect x="11" y="2" width="1" height="1" fill="#f2b705"/><rect x="10" y="3" width="3" height="1" fill="#f2b705"/><rect x="11" y="4" width="1" height="1" fill="#f2b705"/>
+<rect x="6" y="6" width="10" height="4" fill="#c8102e"/><rect x="5" y="6" width="1" height="4" fill="#8f0c22"/><rect x="16" y="6" width="1" height="4" fill="#8f0c22"/>
+<rect x="6" y="10" width="10" height="2" fill="#8f0c22"/><rect x="7" y="12" width="8" height="1" fill="#8f0c22"/><rect x="8" y="13" width="6" height="1" fill="#8f0c22"/><rect x="9" y="14" width="4" height="1" fill="#8f0c22"/>
+<rect x="4" y="15" width="14" height="1" fill="#c8102e"/><rect x="2" y="16" width="18" height="1" fill="#c8102e"/><rect x="1" y="17" width="20" height="1" fill="#c8102e"/><rect x="0" y="18" width="22" height="4" fill="#c8102e"/>
+</svg>
+<div style="position:relative">
+<div style="background:#c8102e;display:flex;align-items:center;justify-content:space-between;padding:5px 8px;border-bottom:4px solid #000">
+<div class="pywebview-drag-region" style="display:flex;align-items:center;gap:8px;flex:1">
+<svg width="15" height="15" viewBox="0 0 5 5" shape-rendering="crispEdges" fill="#f2b705" aria-hidden="true"><rect x="2" y="0" width="1" height="1"/><rect x="1" y="1" width="3" height="1"/><rect x="0" y="2" width="5" height="1"/><rect x="1" y="3" width="3" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/></svg>
+<p class="px" style="font-size:13px;font-weight:700;color:#f2b705">CAMARADAS DOWNLOADER</p>
+</div>
+<div style="display:flex;align-items:center;gap:8px">
+<div id="dots" class="rb" role="button" tabindex="0" aria-label="Mais opções" style="padding:2px 6px;line-height:0"><svg width="4" height="16" viewBox="0 0 2 8" shape-rendering="crispEdges" fill="#f5e6c8" aria-hidden="true"><rect x="0" y="0" width="2" height="2"/><rect x="0" y="3" width="2" height="2"/><rect x="0" y="6" width="2" height="2"/></svg></div>
+<div id="wmin" class="wb px rb" role="button" tabindex="0" style="font-size:13px;color:#f5e6c8" aria-label="Minimizar">_</div>
+<div id="wclose" class="wb px rb" role="button" tabindex="0" style="font-size:13px;color:#f5e6c8" aria-label="Fechar">X</div>
+</div>
+</div>
+<div id="dd" style="display:none;position:absolute;top:34px;right:8px;z-index:5;background:#060b1e;border:3px solid #c8102e;min-width:170px">
+<div id="m-how" class="px rb t" role="button" tabindex="0" style="padding:9px 12px">Como funciona</div>
+<div id="m-login" class="px rb t" role="button" tabindex="0" style="padding:9px 12px">Login do navegador</div>
+<div style="border-top:2px solid #1a2550"></div>
+<div id="m-help" class="px rb t" role="button" tabindex="0" style="padding:9px 12px">Ajuda</div>
+</div>
+<div id="splash" style="display:none;padding:60px 10px;flex-direction:column;align-items:center;gap:14px">
+<svg width="48" height="48" fill="#f2b705" shape-rendering="crispEdges" aria-hidden="true"><use href="#hs" width="48" height="48"/></svg>
+<p id="st" class="px" style="font-size:16px;font-weight:700;color:#f2b705;text-align:center">Convocando o Comitê Central...</p>
+</div>
+<div id="main" style="padding:10px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:12px">
+<svg width="48" height="48" fill="#f2b705" shape-rendering="crispEdges" role="img" aria-label="Foice e martelo em pixel art" style="flex:none"><use href="#hs" width="48" height="48"/></svg>
+<div>
+<p class="px" style="font-size:20px;line-height:1;font-weight:700;color:#f2b705">CAMARADAS</p>
+<p class="px" style="font-size:26px;line-height:1;font-weight:700;color:#c8102e;margin-top:2px">DOWNLOADER</p>
+</div>
+</div>
+<p class="px t">Camarada, cole o link aqui</p>
+<input id="url" class="px t" spellcheck="false" style="box-sizing:border-box;width:100%;border:3px solid #c8102e;background:#060b1e;padding:8px 10px;outline:none">
+<div style="position:relative">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
+<div id="tv" class="tg rb sel" role="button" tabindex="0"><span class="mk"></span><span>VÍDEO MP4</span></div>
+<div id="ta" class="tg uns" style="justify-content:space-between">
+<div id="sa" class="rb" role="button" tabindex="0" style="display:flex;align-items:center;gap:8px;flex:1"><span class="mk"></span><span id="al">ÁUDIO MP3</span></div>
+<div id="bf" class="rb" role="button" tabindex="0" aria-label="Escolher formato de áudio" style="padding:2px 3px;line-height:0"><svg width="4" height="16" viewBox="0 0 2 8" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="2" height="2"/><rect x="0" y="3" width="2" height="2"/><rect x="0" y="6" width="2" height="2"/></svg></div>
+</div>
+</div>
+<div id="dd2" class="px t" style="display:none;position:absolute;top:100%;right:0;margin-top:4px;z-index:6;width:210px;background:#060b1e;border:3px solid #c8102e"></div>
+</div>
+<div id="go" class="rb" role="button" tabindex="0" style="background:#c8102e;border:4px solid #000;border-bottom:7px solid #7a0a1c;padding:9px 12px;text-align:center">
+<p class="px" style="font-size:20px;font-weight:700;color:#f2b705">EXPROPRIAR</p>
+<p class="px" style="font-size:12px;color:#f5e6c8;margin-top:2px">clique para baixar</p>
+</div>
+<div id="msg" style="display:none"></div>
+<div id="prog" style="display:none">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<p id="pl" class="px" style="font-size:12px;color:#f5e6c8">Baixando seu vídeo...</p>
+<p id="pct" class="px" style="font-size:12px;color:#f2b705">0%</p>
+</div>
+<div id="bar" style="border:3px solid #c8102e;background:#060b1e;padding:3px;display:flex;gap:2px;margin-top:4px"></div>
+<p id="cancel" class="px rb" role="button" tabindex="0" style="font-size:12px;color:#8fa0d0;text-align:right;margin-top:8px">CANCELAR</p>
+</div>
+</div>
+<div id="how" style="display:none;padding:10px;flex-direction:column;gap:10px">
+<p class="px" style="font-size:16px;font-weight:700;color:#f2b705">COMO FUNCIONA</p>
+<div style="display:flex;gap:8px"><p class="px t" style="color:#f2b705;min-width:10px">1</p><p class="px t">Copie o link e cole aqui. O app cola sozinho.</p></div>
+<div style="display:flex;gap:8px"><p class="px t" style="color:#f2b705;min-width:10px">2</p><p class="px t">Escolha vídeo ou áudio.</p></div>
+<div style="display:flex;gap:8px"><p class="px t" style="color:#f2b705;min-width:10px">3</p><p class="px t">Clique em EXPROPRIAR. A máquina do povo trabalha.</p></div>
+<div style="display:flex;gap:8px"><p class="px t" style="color:#f2b705;min-width:10px">4</p><p class="px t">O vídeo cai em Downloads, pasta Vídeos baixados.</p></div>
+<div style="display:flex;gap:8px"><p class="px t" style="color:#f2b705;min-width:10px">5</p><p class="px t">Quase todo site serve: YouTube, Shorts, Instagram, TikTok e mais de mil. Se quebrar, o Comitê Central se atualiza sozinho.</p></div>
+<div id="b-how" class="px rb btn" role="button" tabindex="0">VOLTAR</div>
+</div>
+<div id="login" style="display:none;padding:10px;flex-direction:column;gap:10px">
+<p class="px" style="font-size:16px;font-weight:700;color:#f2b705">LOGIN DO NAVEGADOR</p>
+<p class="px t">Alguns vídeos do Instagram só saem para quem tem carteirinha: sem login, nada de baixar.</p>
+<p class="px t">Entre na sua conta no navegador, escolha ele aqui embaixo e a máquina do povo usa o seu acesso.</p>
+<div id="brl" class="px t"></div>
+<p class="px" style="font-size:12px;color:#8fa0d0">O Chrome às vezes esconde a carteirinha. Se der erro, tente Firefox ou Edge.</p>
+<div id="b-login" class="px rb btn" role="button" tabindex="0">VOLTAR</div>
+</div>
+<div id="help" style="display:none;padding:10px;flex-direction:column;gap:10px">
+<p class="px" style="font-size:16px;font-weight:700;color:#f2b705">AJUDA</p>
+<p class="px t">App feito para rodar só entre amigos.</p>
+<p class="px t">Não é monetizável: sem anúncio, sem cobrança, sem patrão.</p>
+<p class="px t">Pode ser compartilhado com todo camarada que precisa de vídeos do YouTube e de outras plataformas.</p>
+<p class="px t">Problemas? Fale com o camarada [NOME].</p>
+<div id="b-help" class="px rb btn" role="button" tabindex="0">VOLTAR</div>
+</div>
+</div>
+</div>
+<script>
+var $=function(i){return document.getElementById(i)};
+function api(){var a=[].slice.call(arguments),f=a.shift();try{return window.pywebview.api[f].apply(null,a)}catch(e){}}
+var dd=$('dd'),dd2=$('dd2'),tv=$('tv'),ta=$('ta'),al=$('al');
+var mode='video',fmt='MP3',br='none',busy=false;
+var F=[['MP3','leve'],['WAV','sem compressão'],['FLAC','sem perda'],['M4A','AAC'],['OPUS','eficiente']];
+var B=[['none','Nenhum'],['firefox','Firefox'],['edge','Edge'],['chrome','Chrome']];
+function fit(){api('fit',$('win').offsetHeight)}
+function save(){api('save_settings',{mode:mode,fmt:fmt,br:br})}
+function render(){
+var a=mode==='audio';
+tv.className='tg rb '+(a?'uns':'sel');
+ta.className='tg '+(a?'sel':'uns');
+al.textContent='ÁUDIO '+fmt;
+var h='';
+for(var i=0;i<F.length;i++){var on=F[i][0]===fmt;
+h+='<div class="rb" role="button" tabindex="0" data-f="'+F[i][0]+'" style="padding:7px 10px;display:flex;gap:8px;align-items:center;color:'+(on?'#f2b705':'#f5e6c8')+'"><span class="mk"'+(on?' style="background:#f2b705"':'')+'></span><span>'+F[i][0]+'</span><span style="color:#8fa0d0">'+F[i][1]+'</span></div>';}
+dd2.innerHTML=h;save();}
+function renderBr(){
+var h='';
+for(var i=0;i<B.length;i++){var on=B[i][0]===br;
+h+='<div class="rb" role="button" tabindex="0" data-b="'+B[i][0]+'" style="display:flex;gap:8px;align-items:center;padding:6px 0;color:'+(on?'#f2b705':'#f5e6c8')+'"><span class="mk"'+(on?' style="background:#f2b705"':'')+'></span><span>'+B[i][1]+'</span></div>';}
+$('brl').innerHTML=h;save();}
+function show(w){
+['main','how','login','help'].forEach(function(k){$(k).style.display=k===w?'flex':'none'});
+$('splash').style.display='none';dd.style.display='none';dd2.style.display='none';fit();}
+for(var i=0;i<16;i++){var d=document.createElement('div');d.style.cssText='flex:1;height:10px;background:#1a2550';$('bar').appendChild(d);}
+window.setSplash=function(t){$('main').style.display='none';$('splash').style.display='flex';$('st').textContent=t;fit();};
+window.hideSplash=function(){show('main');};
+window.setUrl=function(u){$('url').value=u;};
+window.applySettings=function(s){mode=s.mode||mode;fmt=s.fmt||fmt;br=s.br||br;render();renderBr();};
+window.setProgress=function(p,txt){busy=true;$('msg').style.display='none';$('prog').style.display='block';$('pct').textContent=Math.round(p)+'%';var n=Math.round(p/100*16),b=$('bar').children;for(var i=0;i<16;i++)b[i].style.background=i<n?'#f2b705':'#1a2550';if(txt)$('pl').textContent=txt;fit();};
+window.showMsg=function(ok,text,detail){
+busy=false;$('prog').style.display='none';var m=$('msg');m.style.display='block';
+if(ok){m.innerHTML='<div style="border:3px solid #f2b705;background:#060b1e;padding:8px 10px;display:flex;flex-direction:column;gap:8px"><p class="px t" style="color:#f2b705"></p><div id="of" class="px rb btn" role="button" tabindex="0" style="font-size:14px">ABRIR PASTA</div></div>';m.querySelector('p').textContent=text;$('of').onclick=function(){api('open_folder')};}
+else{m.innerHTML='<div style="border:3px solid #c8102e;background:#060b1e;padding:8px 10px"><p class="px t"></p><details style="margin-top:6px"><summary class="px" style="font-size:12px;color:#8fa0d0;cursor:pointer">ver detalhes técnicos</summary><pre class="px" style="font-size:11px;color:#8fa0d0;white-space:pre-wrap;word-break:break-all;margin:6px 0 0;max-height:120px;overflow:auto"></pre></details></div>';m.querySelector('p').textContent=text;m.querySelector('pre').textContent=detail||'';}
+fit();};
+$('dots').onclick=function(){dd2.style.display='none';dd.style.display=dd.style.display==='block'?'none':'block';};
+$('m-how').onclick=function(){show('how');};
+$('m-login').onclick=function(){show('login');};
+$('m-help').onclick=function(){show('help');};
+$('b-how').onclick=$('b-login').onclick=$('b-help').onclick=function(){show('main');};
+$('wmin').onclick=function(){api('minimize')};
+$('wclose').onclick=function(){api('close')};
+tv.onclick=function(){mode='video';dd2.style.display='none';render();};
+$('sa').onclick=function(){mode='audio';dd2.style.display='none';render();};
+$('bf').onclick=function(){mode='audio';render();dd2.style.display=dd2.style.display==='block'?'none':'block';};
+dd2.onclick=function(e){var t=e.target.closest('[data-f]');if(!t)return;fmt=t.getAttribute('data-f');mode='audio';render();dd2.style.display='none';};
+$('brl').onclick=function(e){var t=e.target.closest('[data-b]');if(!t)return;br=t.getAttribute('data-b');renderBr();};
+$('go').onclick=function(){if(busy)return;api('start',$('url').value.trim(),mode,fmt,br);};
+$('cancel').onclick=function(){api('cancel')};
+document.addEventListener('keydown',function(e){var t=e.target;if(t&&t.getAttribute&&t.getAttribute('role')==='button'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();t.click();}});
+render();renderBr();
+</script></body></html>
