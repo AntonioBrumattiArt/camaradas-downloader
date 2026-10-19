@@ -41,7 +41,17 @@ jobs:
             --download "https://www.youtube.com/watch?v=SkVqJ1SGeL0" \
             --out "dist/selftest-download-${{ matrix.label }}.json"
 
+      # Download real que funciona em servidor: vídeo Creative Commons do Wikimedia Commons
+      # (WebM/VP9). Exercita o caminho completo: yt-dlp -> ffmpeg recodifica para
+      # H.264+AAC no MP4 e extrai o MP3. Este precisa passar.
+      - name: Autoteste com download real (Wikimedia Commons)
+        run: |
+          "dist/Camaradas Downloader.app/Contents/MacOS/Camaradas Downloader" --selftest \
+            --download "https://upload.wikimedia.org/wikipedia/commons/a/ab/Caminandes_3_-_Llamigos_-_Blender_Animated_Short.webm" \
+            --out "dist/selftest-commons-${{ matrix.label }}.json"
+
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: Camaradas-Downloader-Mac-${{ matrix.label }}
           path: |

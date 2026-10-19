@@ -11,3 +11,4 @@ Camaradas-Downloader*.zip
 # binários grandes: no Windows ficam em vendor/ (ver README); no Mac o build_mac.sh baixa
 vendor/*.exe
 vendor_mac/
+mac_builds/
